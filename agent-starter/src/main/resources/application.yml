@@ -5,30 +5,57 @@ spring:
   application:
     name: agent-seek
 
-  # 数据源配置（按需开启）
-  # datasource:
-  #   url: jdbc:mysql://localhost:3306/agent_seek
-  #   username: root
-  #   password: password
-  #   driver-class-name: com.mysql.cj.jdbc.Driver
+  # ========== 数据库配置 ==========
+  # 默认使用 H2 内存数据库，方便快速启动测试
+  # 生产环境请切换到 MySQL（取消下方 MySQL 配置注释，注释掉 H2 配置）
+  datasource:
+    # --- H2 内存数据库（默认）---
+    url: jdbc:h2:mem:agentseek;DB_CLOSE_DELAY=-1;MODE=MySQL;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
 
-  # Redis 配置（按需开启）
-  # data:
-  #   redis:
-  #     host: localhost
-  #     port: 6379
+    # --- MySQL 配置（生产环境使用）---
+    # url: jdbc:mysql://localhost:3306/agent_seek?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    # driver-class-name: com.mysql.cj.jdbc.Driver
+    # username: root
+    # password: your_password
+
+  # H2 Console（开发调试使用）
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: false
+
+  # JPA / DDL 自动执行
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db/schema-h2.sql
+      data-locations: classpath:db/data-h2.sql
+
+# MyBatis-Plus 配置
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
 
 # Agent 引擎配置
 agent:
   engine:
-    # 最大并发 Agent 数
     max-concurrent: 100
-    # 默认超时时间（秒）
     default-timeout: 60
-    # 工作流执行线程池大小
     workflow-pool-size: 10
 
 # 日志配置
 logging:
   level:
     com.agentseek: INFO
+    com.baomidou.mybatisplus: DEBUG
