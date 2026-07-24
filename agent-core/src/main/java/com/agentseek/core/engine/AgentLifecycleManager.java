@@ -4,6 +4,7 @@ import com.agentseek.common.constant.AgentStatus;
 import com.agentseek.common.exception.AgentException;
 import com.agentseek.core.model.Agent;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -13,6 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Agent 生命周期管理器
  */
 @Slf4j
+@Component
 public class AgentLifecycleManager {
 
     private final Map<String, Agent> agentRegistry = new ConcurrentHashMap<>();
