@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class AgentSeekApplication {
 
     public static void main(String[] args) {
+        //入口
         SpringApplication.run(AgentSeekApplication.class, args);
     }
 }
