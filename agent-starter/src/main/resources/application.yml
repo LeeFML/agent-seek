@@ -1,0 +1,34 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: agent-seek
+
+  # 数据源配置（按需开启）
+  # datasource:
+  #   url: jdbc:mysql://localhost:3306/agent_seek
+  #   username: root
+  #   password: password
+  #   driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # Redis 配置（按需开启）
+  # data:
+  #   redis:
+  #     host: localhost
+  #     port: 6379
+
+# Agent 引擎配置
+agent:
+  engine:
+    # 最大并发 Agent 数
+    max-concurrent: 100
+    # 默认超时时间（秒）
+    default-timeout: 60
+    # 工作流执行线程池大小
+    workflow-pool-size: 10
+
+# 日志配置
+logging:
+  level:
+    com.agentseek: INFO
